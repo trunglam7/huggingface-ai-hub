@@ -1,0 +1,10 @@
+.mainContainer{
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.mainContainer > img{
+    max-width: 75%;
+    border-radius: 1rem;
+}

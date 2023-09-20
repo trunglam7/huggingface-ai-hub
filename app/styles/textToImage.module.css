@@ -1,0 +1,11 @@
+.mainContainer{
+    text-align: center;
+}
+
+.inputForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+    margin-top: 1rem;
+}
