@@ -20,7 +20,7 @@ export default function TextToImage() {
             setImageReady(false);
             const model = await hf.textToImage({
                 inputs: userQuery,
-                model: 'stabilityai/stable-diffusion-xl-base-1.0',
+                model: 'stabilityai/stable-diffusion-2',
                 parameters: {
                   negative_prompt: 'blurry',
                 }
