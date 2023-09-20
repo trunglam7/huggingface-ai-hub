@@ -19,7 +19,7 @@ export default function TextToImage() {
             setGeneratingImage(true);
             setImageReady(false);
 
-            const uniqueUserQuery = userQuery + Date.now();
+            const uniqueUserQuery = userQuery + ' ' + Date.now();
             const model = await hf.textToImage({
                 inputs: uniqueUserQuery,
                 model: 'stabilityai/stable-diffusion-2',
