@@ -56,7 +56,7 @@ export default function TextToImage() {
             <br />
             {generatingImage && <CircularProgress />}
             <div className={styles.imageContainer}>
-                {imageReady && imageUrlArray.map(imgUrl => <ImgWrapper imgUrl={imgUrl} />)}
+                {imageReady && imageUrlArray.map((imgUrl, index) => <ImgWrapper key={index} imgUrl={imgUrl} />)}
             </div>
             <div className={styles.inputForm}>
                 <TextField variant='outlined' label='Query' onChange={(e) => setUserQuery(e.target.value)}/>
