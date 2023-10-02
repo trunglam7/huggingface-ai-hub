@@ -52,7 +52,7 @@ export default function TextToImage() {
 
     return (
         <div className={styles.mainContainer}>
-            <h1>Text to Image Generator</h1>
+            <h1>Text to Image</h1>
             <br />
             {generatingImage && <CircularProgress />}
             <div className={styles.imageContainer}>
