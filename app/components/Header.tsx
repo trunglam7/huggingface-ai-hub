@@ -30,7 +30,7 @@ export default function Header({aiTool} : HeaderProps) {
 
   return (
     <header className={styles.header}>
-        <h1>Generative AI Hub</h1>
+        <h1>GenAI Hub</h1>
         <div className={styles.header_right}>
           <b>{currTool}</b>
           <Button onClick={openAiMenu}>

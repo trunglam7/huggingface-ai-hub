@@ -9,7 +9,6 @@ export default function ImageToText() {
 
     const [image, setImage] = useState('');
     const [text, setText] = useState('');
-    const [generatingText, setGeneratingText] = useState(false);
 
     const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY);
 
@@ -18,7 +17,6 @@ export default function ImageToText() {
         if(e.target.files){
             try {
                 setText('');
-                setGeneratingText(true);
                 const img = e.target.files[0]
                 const reader = new FileReader();
 
@@ -39,8 +37,6 @@ export default function ImageToText() {
                 reader.readAsArrayBuffer(img);
             } catch (err) {
                 console.log('Error generating text:', err);
-            } finally {
-                setGeneratingText(false);
             }
         }
     };
@@ -52,8 +48,8 @@ export default function ImageToText() {
         <label htmlFor='image-input' style={{cursor: 'pointer'}}><AddPhotoAlternateIcon sx={{fontSize: '3rem'}}/></label>
         <input style={{display: 'none'}} type='file' accept='image/*' id='image-input' onChange={handleImageChange} />
         {image && <img className={styles.img_preview} src={image} alt='uploaded image' />}
-        {!text && (<><br /><CircularProgress /></>)}
-        {text && <b>{text}</b>}
+        {(image && !text) && (<><br /><CircularProgress /></>)}
+        {text && <b style={{textAlign: 'center'}}>{text}</b>}
     </div>
     )
 }
