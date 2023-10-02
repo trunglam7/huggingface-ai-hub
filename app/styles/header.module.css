@@ -1,0 +1,19 @@
+.header{
+    background-color: #0300bf;
+    color: white;
+    position: fixed;
+    min-width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_right{
+    display: flex;
+    align-items: center;
+}
+
+.btn_container{
+    display: grid;
+    padding: 1rem;
+}

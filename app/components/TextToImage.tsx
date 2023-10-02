@@ -52,12 +52,12 @@ export default function TextToImage() {
 
     return (
         <div className={styles.mainContainer}>
-            <h1>Text to Image Generator</h1>
+            <h1>Text to Image</h1>
             <br />
-            {generatingImage && <CircularProgress />}
             <div className={styles.imageContainer}>
                 {imageReady && imageUrlArray.map((imgUrl, index) => <ImgWrapper key={index} imgUrl={imgUrl} />)}
             </div>
+            {generatingImage && <CircularProgress />}
             <div className={styles.inputForm}>
                 <TextField variant='outlined' label='Query' onChange={(e) => setUserQuery(e.target.value)}/>
                 <Select
