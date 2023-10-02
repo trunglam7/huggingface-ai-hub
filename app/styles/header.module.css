@@ -17,3 +17,9 @@
     display: grid;
     padding: 1rem;
 }
+
+@media screen and (max-width: 425px) {
+    .header_right > b{
+        display: none;
+    }
+}
