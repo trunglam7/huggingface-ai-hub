@@ -7,3 +7,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+.header_right{
+    display: flex;
+    align-items: center;
+}
+
+.btn_container{
+    display: grid;
+    padding: 1rem;
+}

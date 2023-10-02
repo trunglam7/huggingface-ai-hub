@@ -1,33 +1,59 @@
 
+import { HfInference } from '@huggingface/inference';
 import React, { ChangeEvent, useState } from 'react'
+import {CircularProgress} from '@mui/material'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import styles from '../styles/imageToText.module.css'
 
 export default function ImageToText() {
 
-    const [image, setImage] = useState<any>(null);
+    const [image, setImage] = useState('');
+    const [text, setText] = useState('');
+    const [generatingText, setGeneratingText] = useState(false);
+
+    const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY);
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 
         if(e.target.files){
-            const reader = new FileReader();
+            try {
+                setText('');
+                setGeneratingText(true);
+                const img = e.target.files[0]
+                const reader = new FileReader();
 
-            reader.onload = (e) => {
-              const arrayBuffer = e.target.result;
-              const bufferArray = new Uint8Array(arrayBuffer);
-      
-              // Now you have the image data as a buffer array (bufferArray)
-              setImage(bufferArray);
+                reader.onload = async () => {
+
+                    const blob = new Blob([reader.result as ArrayBuffer]);
+                    const imageUrl = URL.createObjectURL(blob);
+                    setImage(imageUrl);
+
+                    const model = await hf.imageToText({
+                        data: reader.result as ArrayBuffer,
+                        model: 'Salesforce/blip-image-captioning-large'
+                    });
+
+                    setText(model.generated_text)
+                }
+
+                reader.readAsArrayBuffer(img);
+            } catch (err) {
+                console.log('Error generating text:', err);
+            } finally {
+                setGeneratingText(false);
             }
         }
-        // const selectedImage = e.target.files ? e.target.files[0] : null;
-        // setImage(selectedImage);
     };
 
-    console.log(image)
-
     return (
-    <div>
+    <div className={styles.main_container}>
         <h1>Image To Text</h1>
-        <input type='file' accept='image/*' onChange={handleImageChange} />
+        <br />
+        <label htmlFor='image-input' style={{cursor: 'pointer'}}><AddPhotoAlternateIcon sx={{fontSize: '3rem'}}/></label>
+        <input style={{display: 'none'}} type='file' accept='image/*' id='image-input' onChange={handleImageChange} />
+        {image && <img className={styles.img_preview} src={image} alt='uploaded image' />}
+        {!text && (<><br /><CircularProgress /></>)}
+        {text && <b>{text}</b>}
     </div>
     )
 }
